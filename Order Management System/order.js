@@ -61,7 +61,13 @@ class OrderManagement {
       console.log("Order not found.");
       return false;
     }
-    return order.updateOrder(newItems);
+
+    const success = order.updateOrder(newItems);
+    if (!success) {
+      console.log("Order is already delivered,cannot update");
+      return false;
+    }
+    return true;
   }
 
   // Method to cancel an order
@@ -99,6 +105,11 @@ class OrderManagement {
     };
   }
 
+  getAllOrders() {
+    let orders = this.orders;
+    return orders;
+  }
+
   // Method to generate a report
   generateReport() {
     let totalOrders = 0;
@@ -120,3 +131,12 @@ class OrderManagement {
     console.log(`Delivered Orders: ${deliveredOrders}`);
   }
 }
+
+
+
+const order = new OrderManagement();
+order.placeOrder(0, ["item1", "item2"]);
+order.placeOrder(1, ["item3", "item4"]);
+order.placeOrder(2, ["item5", "item6"]);
+order.placeOrder(3, ["item7", "item8"]);
+console.log(order.getAllOrders());
