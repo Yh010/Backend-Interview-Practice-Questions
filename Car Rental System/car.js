@@ -58,6 +58,10 @@ class CarRental {
   // Return a rented car
   returnCar(carId) {
     const car = this.cars[carId];
+    if (!car.isRented) {
+          console.log("car is not even rented");
+          return false;
+    }
     if (car && car.returnCar()) {
       console.log(`Car returned: ${car.make} ${car.model}`);
       return true;
@@ -106,8 +110,8 @@ class CarRental {
  const carRental = new CarRental();
 carRental.addCar("Toyota", "Corolla");
 carRental.addCar("Honda", "Civic");
-
-carRental.rentCar(3);
+carRental.returnCar(1);
+/* carRental.rentCar(1); */
 /* console.log(carRental.listAllCars());
 carRental.rentCar(1);
 
