@@ -41,7 +41,12 @@ class CarRental {
 
   // Rent a car
   rentCar(carId) {
+    
     const car = this.cars[carId];
+    if (!car) {
+          console.log("Car doesnt exist for this id:"+carId);
+          return false;
+    }
     if (car && car.rentCar()) {
       console.log(`Car rented: ${car.make} ${car.model}`);
       return true;
@@ -87,11 +92,12 @@ class CarRental {
   // Remove a car from the fleet
   removeCar(carId) {
     const car = this.cars[carId];
-    if (car) {
+    if (car && !car.isRented) {
       delete this.cars[carId];
       console.log(`Car removed: ${car.make} ${car.model}`);
       return true;
     }
+    console.log(`Car cannot be removed as it is currently rented: ${car.make} ${car.model}`);
     return false;
   }
 }
@@ -101,12 +107,17 @@ class CarRental {
 carRental.addCar("Toyota", "Corolla");
 carRental.addCar("Honda", "Civic");
 
+carRental.rentCar(3);
+/* console.log(carRental.listAllCars());
+carRental.rentCar(1);
 
+carRental.removeCar(1);
 console.log(carRental.listAllCars());
-carRental.rentCar(1);
+carRental.removeCar(2);
 console.log(carRental.listAllCars());
-carRental.rentCar(1);
-console.log(carRental.listAllCars());
+carRental.returnCar(1);
+console.log(carRental.listAllCars()); */
+
 /*
 // Renting the first car
 
