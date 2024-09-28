@@ -1,9 +1,10 @@
 class Book {
-  constructor(id, title, author) {
+  constructor(id, title, author,borrowerName) {
     this.id = id;
     this.title = title;
     this.author = author;
     this.isBorrowed = false;
+    this.borrowerName = borrowerName || null;  
   }
 
   borrowBook() {
@@ -27,6 +28,7 @@ class Library {
   constructor() {
     this.books = {};
     this.nextBookId = 1;
+    this.borrowedBooks = {};  // Separate log for borrowed books
   }
 
   // Add a new book to the library
@@ -46,10 +48,12 @@ class Library {
   }
 
   // Borrow a book from the library
-  borrowBook(bookId) {
+  borrowBook(bookId,borrowerName) {
     const book = this.books[bookId];
     if (book && book.borrowBook()) {
-      return true;
+        book.borrowerName = borrowerName;
+        this.borrowedBooks[bookId] = book;
+        return true;
     }
     return false;
   }
@@ -58,6 +62,7 @@ class Library {
   returnBook(bookId) {
     const book = this.books[bookId];
     if (book && book.returnBook()) {
+        delete this.borrowedBooks[bookId];  
       return true;
     }
     return false;
@@ -83,7 +88,8 @@ class Library {
       id: book.id,
       title: book.title,
       author: book.author,
-      isBorrowed: book.isBorrowed
+        isBorrowed: book.isBorrowed,
+      borrowerName: book.borrowerName
     }));
   }
 

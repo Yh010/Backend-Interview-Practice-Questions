@@ -5,4 +5,8 @@ const { Library } = require("./solution");
 const library = new Library();
 
 library.addBook("hi","yash");
-library.addBook("hi","yash");
+library.addBook("hilll", "yashaaa");
+
+library.borrowBook(1, "mee");
+
+console.log(library.listAllBooks());
